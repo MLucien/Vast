@@ -1,0 +1,33 @@
+{
+  "title": "Buzz home",
+  "name": "buzz",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "gulp watch"
+  },
+  "description": "A basic web chat app",
+  "keywords": [
+    "css",
+    "sass",
+    "html",
+    "responsive",
+    "theme",
+    "template"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BlackrockDigital/startbootstrap-blog-home.git"
+  },
+  "dependencies": {
+    "bootstrap": "4.3.1",
+    "express": "^4.17.1",
+    "jquery": "3.4.1"
+  },
+  "devDependencies": {
+    "browser-sync": "2.26.7",
+    "del": "^4.1.1",
+    "gulp": "4.0.2",
+    "merge-stream": "2.0.0"
+  },
+  "main": "gulpfile.js"
+}
