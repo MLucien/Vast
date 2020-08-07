@@ -1,23 +1,28 @@
+<!--
+This file will be included in most files to cut down on the code load of every single page
+-->
+
 <html ng-app="app">
     <head>
         <title>Buzz Application</title>
         <meta charset="utf-8">
         <base href="/">
-        <!-- Adding CSS files-->
+        <!--  CSS -->
         <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" >
         <link rel="stylesheet" href="css/style.css"> 
     </head>
 
-    <!-- Defining angular controller -->
+    <!-- angular controller -->
     <body>
+        
         <div id="main">
-            <!-- Angular router will inject the content here -->
+            <!-- inject content of the website here -->
             <div ng-view></div>
         </div>
     </body>
 
-    <!-- Adding JS files -->
+    <!-- loading JS files -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular.min.js"></script>
     <script src="https://code.angularjs.org/1.6.5/angular-route.min.js"></script>
     <script src="js/ui-bootstrap-2.5.0.min.js"></script>

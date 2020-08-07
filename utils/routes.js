@@ -1,6 +1,6 @@
 /**
-* Real Time chatting app
-* @author Shashank Tiwari
+* turning script mode on and defining all the routes of the application 
+* 
 */
 
 'use strict';
@@ -38,10 +38,47 @@ class Routes{
 			}
 		});		
 
+
+		this.app.post('/posts', async(request,response) => {
+
+			const postsResponse = {}
+			const data = {
+				posts : request.body.posts,
+				from_user_id: request.body.from_user_id
+
+		
+				
+			};		
+			if (data.posts === '' & data.from_user_id === ''){
+				postsResponse.error = true;
+	            postsResponse.message = `They should be something buzzing you, say it`;
+	            response.status(412).json(postsResponse);
+			} else {
+				const result = await helper.insertPosts(data);
+				if (result === null) {
+					postsResponse.error = true;
+					postsResponse.message = `Something went wrong.`;
+					response.status(417).json(postsResponse);
+				} else {
+					postsResponse.error = false;
+					postsResponse.userId = result.insertId;
+					postsResponse.message = `Buzzed.`;
+					response.status(200).json(postsResponse);
+				}
+
+			}});
+
+
 		this.app.post('/registerUser', async (request,response) => {
 			const registrationResponse = {}
 			const data = {
 				username : (request.body.username).toLowerCase(),
+				name : request.body.name,
+				surname : request.body.surname,
+				age: (request.body.age).toString(),
+				gender: request.body.gender,
+				relantionshiop: request.body.relantionshiop,
+				country: (request.body.country).toLowerCase(),
 				password : request.body.password
 			};			
 			if(data.username === '') {
@@ -138,6 +175,29 @@ class Routes{
 					response.status(200).json(messages);
 				}
 	        }
+		});
+
+	this.app.post('/getPosts',async (request,response) => {
+			// const userId = request.body.userId;
+			// const toUserId = request.body.toUserId;
+			const postsData = {}
+		
+				const result = await helper.getPostList();
+				postsData.postsData = result;
+				
+				if (result ===  null) {
+					postsData.error = true;
+					postsData.message = `Internal Server error.`;
+					response.status(500).json(postsData);
+				}else{
+					postsData.error = false;
+					postsData.message = result;
+					response.status(200).json(postsData);
+
+				}
+				 
+				//console.log(result);
+			
 		});
 		
 		this.app.get('*',(request,response) =>{

@@ -1,6 +1,6 @@
 /**
-* Real Time chatting app
-* @author Shashank Tiwari
+* 
+* allowing us to insert data in mysql passing the params from controler class
 */
 
 'user strict';
@@ -11,15 +11,21 @@ class Helper{
 	constructor(app){
 		this.db = DB;
 	}
-
+//connect to mysql to check the username
 	async userNameCheck (username){
 		return await this.db.query(`SELECT count(username) as count FROM user WHERE LOWER(username) = ?`, `${username}`);
 	}
 
+	async userSurnameCheck (name){
+		return await this.db.query(`SELECT count(name) as count FROM user WHERE LOWER(name) = ?`, `${name}`);
+	}
+
+	//async variables to insert the new user in our database
 	async registerUser(params){
 		try {
-			return await this.db.query("INSERT INTO user (`username`,`password`,`online`) VALUES (?,?,?)", [params['username'],params['password'],'Y']);
-		} catch (error) {
+			return await
+			 this.db.query("INSERT INTO user (`username`,`password`, `surname`, `name`, `age`, `gender`,`relantionshiop`, `country`, `online`) VALUES (?,?,?,?,?,?,?,?,?)", [params['username'],params['password'],params['surname'],params['name'],params['age'],params['gender'],params['relantionshiop'],params['country'],'Y']);
+        } catch (error) {
 			console.error(error);
 			return null;
 		}
@@ -27,7 +33,7 @@ class Helper{
 
 	async loginUser(params){
 		try {
-			return await this.db.query(`SELECT id FROM user WHERE LOWER(username) = ? AND password = ?`, [params.username,params.password]);
+			return await this.db.query(`SELECT id FROM user WHERE LOWER(username) = ? AND password = ?`, [params.username,params.password,params.name,params.surname,params.relantionshiop]);
 		} catch (error) {
 			return null;
 		}
@@ -35,7 +41,7 @@ class Helper{
 
 	async userSessionCheck(userId){
 		try {
-			const result = await this.db.query(`SELECT online,username FROM user WHERE id = ? AND online = ?`, [userId,'Y']);
+			const result = await this.db.query(`SELECT online, username FROM user WHERE id = ? AND online = ?`, [userId,'Y']);
 			if(result !== null){
 				return result[0]['username'];
 			}else{
@@ -100,6 +106,71 @@ class Helper{
 	}
 
 	async getMessages(userId, toUserId){
+		try {
+			return await this.db.query(
+				`SELECT id,from_user_id as fromUserId,to_user_id as toUserId,message FROM message WHERE 
+					(from_user_id = ? AND to_user_id = ? )
+					OR
+					(from_user_id = ? AND to_user_id = ? )	ORDER BY id ASC				
+				`,
+				[userId, toUserId, toUserId, userId]
+			);
+		} catch (error) {
+			console.warn(error);
+			return null;
+		}
+	}
+
+	async getPostList(posts, from_user_id){
+		try {
+			return await this.db.query(
+				`SELECT * FROM posts ORDER BY id ASC`,
+				[posts, from_user_id]
+			);
+		} catch (error) {
+			console.warn(error);
+			return null;
+		}
+	}
+
+// code on the posts
+
+	// getPostList(){
+		
+	// 	try {
+	// 		return Promise.all([
+	// 			this.db.query(`SELECT * FROM posts`),
+	// 			// this.db.query(`SELECT posts, from_user_id FROM posts`)
+	// 		]).then( (response) => {
+	// 			return {
+	// 				userinfo : response[0].length > 0 ? response[0][0] : response[0],
+	// 				postlist : response[1]
+	// 			};
+	// 		}).catch( (error) => {
+	// 			console.warn(error);
+	// 			return (null);
+	// 		});
+	// 	} catch (error) {
+	// 		console.warn(error);
+	// 		return null;
+	// 	}
+	// }
+
+	async insertPosts(params){
+		try {
+			return await this.db.query(
+				`INSERT INTO posts (from_user_id,post) values (?,?)`,
+				[params.from_user_id,params.posts]
+
+				
+			);
+		} catch (error) {
+			console.warn(error);
+			return null;
+		}		
+	}
+
+	async getPosts(userId, toUserId){
 		try {
 			return await this.db.query(
 				`SELECT id,from_user_id as fromUserId,to_user_id as toUserId,message FROM message WHERE 

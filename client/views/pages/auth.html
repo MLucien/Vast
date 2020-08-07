@@ -1,11 +1,15 @@
+<!-- Home page header begins-->
+    <div class="home-header">
+        <p class="welcome-user">Welcome To Buzz</p>
+    </div>
 <div class="auth-page">
     <div class="container auth-container">
         <div class="auth">
 
             <!-- Auth Page Header Tabs start -->
             <div class="auth-header">
-                <button type="button" class="btn btn-primary auth-header-btn" ng-click="active = 0">Login</button>
-                <button type="button" class="btn btn-primary auth-header-btn" ng-click="active = 1">Register</button>
+                <button type="button" class="btn btn-danger auth-header-btn" ng-click="active = 0">Login</button>
+                <button type="button" class="btn btn-info auth-header-btn" ng-click="active = 1">Register</button>
             </div>
             <!-- Auth Page Header Tabs ends -->
 
@@ -30,15 +34,58 @@
                                     placeholder="Enter password" 
                                     ng-model="data.loginPassword">
                             </div>
-                            <button class="btn btn-primary" ng-click="loginUser()">Login</button>
+                            <button class="btn btn-success" ng-click="loginUser()">Login</button>
                         </div>
                     </uib-tab>
                     <!-- Login Tab ends -->
                     <!-- Register Tab starts -->
                     <uib-tab index="1">
                         <div class="register">
+                     <!-- bubble-->
+                     <div class="form-group">
+                        <div class="login">
                             <div class="form-group">
-                                <label for="username">Username</label>
+                                <label for="name">Name</label>
+                                <input type="name" 
+                                    class="form-control" 
+                                    id="name" 
+                                    placeholder="Please enter your name" 
+                                    ng-model="data.loginname">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="surname">Surname</label>
+                                <input type="surname" 
+                                    class="form-control" 
+                                    id="surname" 
+                                    placeholder="Please enter your surname" 
+                                    ng-model="data.loginsurname">
+                            </div> 
+
+                            <div class="form-group">
+                                <label for="age"> Age</label>
+                                
+                                <input type="number" 
+                                    class="form-control" 
+                                    id="age" 
+                                    placeholder="age" 
+                                    ng-model="data.Userage">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="gender">Gender</label>
+                               <select class="form-control" id="gender" ng-model="data.regGender"  >
+                                <option>Select</option>
+                                 <option>Male </option>
+                                 <option>Female</option>
+                                 <option>Prefer not to say</option>
+                             </select>
+                           </div>
+
+                         <!-- end of bubble-->
+
+
+                      <label for="username">Username</label>
                                 <input type="username" 
                                     class="form-control" 
                                     id="username" 
@@ -54,6 +101,8 @@
                                         <strong>{{ data.regUsername }}</strong> Username is already taken.
                                     </div>
                                 </div>
+                                <small id="passlHelp" class="form-text text-muted">Remember to be unique.</small>
+
                                 
                             </div>
                             <div class="form-group">
@@ -63,7 +112,27 @@
                                     id="reg-password" 
                                     placeholder="Enter password"
                                     ng-model="data.regPassword">
+                                    <small id="passlHelp" class="form-text text-muted">Please select a strong password.</small>
                             </div>
+
+                                 <div class="form-group">
+                                         <label for="relantionshiop">Relantionship Status</label>
+                                        <select class="form-control" id="relantionshiop" ng-model="data.regRelantionshiop">
+                                         <option>Select</option>
+                                          <option>Single</option>
+                                          <option>In a relantionshiop</option>
+                                      </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="country">Country</label>
+                                        <input type="country" 
+                                    class="form-control" 
+                                    id="country" 
+                                    placeholder="Please enter your country" 
+                                    ng-model="data.logincountry">
+                                   </div>
+
                             <button class="btn btn-primary" ng-click="registerUser()">Register</button>
                         </div>
                     </uib-tab>

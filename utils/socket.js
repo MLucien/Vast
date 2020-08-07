@@ -1,7 +1,8 @@
 /**
-* Real Time chatting app
-* @author Shashank Tiwari
+* use socket.io to enable the chat function in the ap
+* 
 */
+
 'use strict';
 
 const path = require('path');
@@ -27,7 +28,7 @@ class Socket{
                 if (userId === '' && (typeof userId !== 'string' || typeof userId !== 'number')) {
 
                     chatListResponse.error = true;
-                    chatListResponse.message = `User does not exits.`;
+                    chatListResponse.message = `Buzz doesn't know the user.`;
                     
                     this.io.emit('chat-list-response',chatListResponse);
                 }else{
@@ -52,15 +53,15 @@ class Socket{
                 
                 if (data.message === '') {
                     
-                    this.io.to(socket.id).emit(`add-message-response`,`Message cant be empty`); 
+                    this.io.to(socket.id).emit(`add-message-response`,`Please type a message`); 
 
                 }else if(data.fromUserId === ''){
                     
-                    this.io.to(socket.id).emit(`add-message-response`,`Unexpected error, Login again.`); 
+                    this.io.to(socket.id).emit(`add-message-response`,`Oops , please try Login again.`); 
 
                 }else if(data.toUserId === ''){
                     
-                    this.io.to(socket.id).emit(`add-message-response`,`Select a user to chat.`); 
+                    this.io.to(socket.id).emit(`add-message-response`,`who do you feel like talking too?.`); 
 
                 }else{                    
                     let toSocketId = data.toSocketId;
@@ -116,7 +117,7 @@ class Socket{
             if(response &&  response !== null){
                 next();
             }else{
-                console.error(`Socket connection failed, for  user Id ${userId}.`);
+                console.error(`Socket connection couldn't occur for the user  ${userId}.`);
             }
         });
 

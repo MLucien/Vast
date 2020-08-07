@@ -54,6 +54,53 @@ class AppService{
         });
     }
 
+
+
+    getPostList(posts, from_user_id) {
+        return new Promise((resolve, reject) => {
+            this.httpCall({
+                url: '/getPosts',
+                'posts': posts,
+                'from_user_id': from_user_id
+            }).then((response) => {
+                resolve(response);
+            }).catch((error) => {
+                reject(error);
+            });
+        });
+    }
+
+   // this is to test the angular on the different approaches it can receive data and sort of arrays
+    // selectFeed = () => {
+
+    //     const products = [{ id: 1, product: 'Sugar', quality: 'Good', quantity: '200 packs' }, { id: 2, product: 'Wheat', quality: 'Super', quantity: '100 bags' }, { id: 3, product: 'Rice', quality: 'Fine', quantity: '50 packs' }];
+    //     $scope.data.products = products;
+    //     selectFeed () {
+
+    //        const products = [{ id: 1, product: 'Sugar', quality: 'Good', quantity: '200 packs' }, { id: 2, product: 'Wheat', quality: 'Super', quantity: '100 bags' }, { id: 3, product: 'Rice', quality: 'Fine', quantity: '50 packs' }];
+    //        $scope.products = products;
+    //  }
+    
+
+    //     $scope.$apply(() => {
+
+    // const products = [{ id: 1, product: 'Sugar', quality: 'Good', quantity: '200 packs' }, { id: 2, product: 'Wheat', quality: 'Super', quantity: '100 bags' }, { id: 3, product: 'Rice', quality: 'Fine', quantity: '50 packs' }];
+    // $scope.data.products = products;
+
+
+
+    // });
+
+
+
+
+   // end of the test
+
+
+
+
+ 
+
     scrollToBottom(){
         const messageThread = document.querySelector('.message-thread');
         setTimeout(() => {

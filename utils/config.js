@@ -1,13 +1,13 @@
 class Config{
 	
 	constructor(app){
-		// Setting .html as the default template extension
+		// default to html
 		app.set('view engine', 'html');
 
-		// Telling express where it can find the templates
+		// link to app templates 
 		app.set('views', (__dirname + '/../views'));
 
-		//Files 
+		//docs requirements
 		app.use(require('express').static(require('path').join('client')));
 
 	}
